@@ -1,5 +1,6 @@
 package ssvv.example;
 
+import domain.Tema;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,11 +8,15 @@ import org.junit.jupiter.api.BeforeEach;
 import repository.TemaXMLRepo;
 import service.Service;
 import validation.TemaValidator;
+import validation.ValidationException;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAddAssignment {
 
@@ -21,7 +26,7 @@ public class TestAddAssignment {
 
     @BeforeAll
     static void createXML() {
-        File xml = new File("fisiere/studentiTest.xml");
+        File xml = new File("fisiere/temeTest.xml");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(xml))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                     "<inbox>\n" +
@@ -43,11 +48,87 @@ public class TestAddAssignment {
 
     @AfterAll
     static void removeXML() {
-        new File("fisiere/studentiTest.xml").delete();
+        new File("fisiere/temeTest.xml").delete();
     }
 
     @Test
-    public void testSomething() {
-
+    void testAddAssignmentValidAssignment() {
+        Tema newTema = new Tema("1", "a", 1, 1);
+        this.service.addTema(newTema);
+        assertEquals(this.service.getAllTeme().iterator().next(), newTema);
     }
+
+    @Test
+    void testAddAssignmentEmptyID() {
+        Tema newTema = new Tema("", "a", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentNullID() {
+        Tema newTema = new Tema(null, "a", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+
+    @Test
+    void testAddAssignmentEmptyDescription() {
+        Tema newTema = new Tema("1", "", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentDeadlineTooLarge() {
+        Tema newTema = new Tema("1", "a", 15, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentReceivedTooSmall() {
+        Tema newTema = new Tema("1", "a", 1, 0);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentReceivedTooLarge() {
+        Tema newTema = new Tema("1", "a", 0, 15);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @Test
+//    void testAddAssignmentReceivedLargerThanDeadline() {
+//        Tema newTema = new Tema("1", "a", 5, 6);
+//        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+//    }
+
+
+//    /**
+//     * Ca sa avem si un tc ce nu trece
+//     */
+//    @Test
+//    void testAddAssignmentNullDescription() {
+//        Tema newTema = new Tema("1", null, 1, 1);
+//        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+//    }

@@ -1,7 +1,8 @@
 package ssvv.example;
 
 import domain.Student;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +16,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestAddStudent {
     private StudentXMLRepo studentFileRepository;
@@ -39,7 +39,7 @@ public class TestAddStudent {
     }
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         this.studentFileRepository = new StudentXMLRepo("fisiere/studentiTest.xml");
         this.studentValidator = new StudentValidator();
         this.service = new Service(this.studentFileRepository, this.studentValidator, null, null, null, null);
@@ -51,10 +51,10 @@ public class TestAddStudent {
     }
 
     @Test
-    void testAddStudentOnGroup() {
-        Student newStudent1 = new Student("123", "a", 931, "aa");
-        Student newStudent2 = new Student("1234", "a", -6, "aa");
-        Student newStudent3 = new Student("42345", "a", 0, "aa");
+    public void testAddStudentOnGroup() {
+        Student newStudent1 = new Student("1", "Ana", 931, "ana@gmail.com");
+        Student newStudent2 = new Student("2", "Ana", -6, "ana@gmail.com");
+        Student newStudent3 = new Student("3", "Ana", 0, "ana@gmail.com");
         this.service.addStudent(newStudent1);
         assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent2));
         this.service.addStudent(newStudent3);
@@ -63,19 +63,55 @@ public class TestAddStudent {
 //        assertEquals(students.next(), newStudent2);
         assertEquals(students.next(), newStudent3);
 
-        this.service.deleteStudent("123");
-        this.service.deleteStudent("42345");
+        this.service.deleteStudent("1");
+        this.service.deleteStudent("3");
     }
 
     @Test
-    void testAddStudentOnName() {
-        Student newStudent1 = new Student("1111", "Ana", 100, "aa");
-        Student newStudent2 = new Student("1111211", "", 100, "aa");
-        Student newStudent3 = new Student("1111211", null, 100, "aa");
+    public void testAddStudentOnName() {
+        Student newStudent1 = new Student("1", "Ana", 931, "ana@gmail.com");
+        Student newStudent2 = new Student("2", "", 931, "ana@gmail.com");
+        Student newStudent3 = new Student("3", null, 931, "ana@gmail.com");
         this.service.addStudent(newStudent1);
         var students = this.service.getAllStudenti().iterator();
         assertEquals(students.next(), newStudent1);
         assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent2));
         assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent3));
+
+        this.service.deleteStudent("1");
     }
+
+
+    @Test
+    public void testAddStudentOnEmail() {
+        Student newStudent1 = new Student("1", "Ana", 931, "ana@gmail.com");
+        Student newStudent2 = new Student("2", "Ana", 931, "");
+        Student newStudent3 = new Student("3", "Ana", 931, null);
+        this.service.addStudent(newStudent1);
+        var students = this.service.getAllStudenti().iterator();
+        assertEquals(students.next(), newStudent1);
+        assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent2));
+        assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent3));
+
+        this.service.deleteStudent("1");
+    }
+
+    @Test
+    public void testAddStudentOnId() {
+        Student newStudent1 = new Student("2345", "Ana", 931, "ana@gmail.com");
+        Student newStudent2 = new Student("", "Ana", 931, "ana@gmail.com");
+        Student newStudent3 = new Student(null, "Ana", 931, "ana@gmail.com");
+        assertNull(newStudent3.getID());
+
+        this.service.addStudent(newStudent1);
+        var students = this.service.getAllStudenti().iterator();
+        assertEquals(students.next(), newStudent1);
+        assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent2));
+        assertThrows(ValidationException.class, () -> this.service.addStudent(newStudent3));
+
+        this.service.deleteStudent("2345");
+    }
+
+
+
 }

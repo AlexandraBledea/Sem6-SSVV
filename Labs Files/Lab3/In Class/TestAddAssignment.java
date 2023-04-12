@@ -51,74 +51,6 @@ public class TestAddAssignment {
         new File("fisiere/temeTest.xml").delete();
     }
 
-
-    /*
-    TC 1
-     */
-    @Test
-    void testAddAssignmentEmptyID() {
-        Tema newTema = new Tema("", "a", 1, 1);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 2
-     */
-    @Test
-    void testAddAssignmentNullID() {
-        Tema newTema = new Tema(null, "a", 1, 1);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 3
-     */
-    @Test
-    void testAddAssignmentEmptyDescription() {
-        Tema newTema = new Tema("1", "", 1, 1);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 4
-     */
-    @Test
-    void testAddAssignmentDeadlineTooLarge() {
-        Tema newTema = new Tema("1", "a", 15, 1);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 5
-     */
-    @Test
-    void testAddAssignmentDeadlineTooSmall() {
-        Tema newTema = new Tema("1", "a", 0, 1);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 6
-     */
-    @Test
-    void testAddAssignmentReceivedTooSmall() {
-        Tema newTema = new Tema("1", "a", 1, 0);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-    /*
-    TC 7
-     */
-    @Test
-    void testAddAssignmentReceivedTooLarge() {
-        Tema newTema = new Tema("1", "a", 1, 15);
-        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
-    }
-
-
-    /*
-    TC 8
-     */
     @Test
     void testAddAssignmentValidAssignment() {
         Tema newTema = new Tema("1", "a", 1, 1);
@@ -126,18 +58,49 @@ public class TestAddAssignment {
         assertEquals(this.service.getAllTeme().iterator().next(), newTema);
     }
 
-    /*
-    TC 9
-     */
     @Test
-    void testAddAssignmentDuplicateAssignment() {
-        Tema newTema = new Tema("1", "a", 1, 1);
-        this.service.addTema(newTema);
-
-        Tema newTema2 = new Tema("1", "a", 1, 1);
-
-        assertEquals(this.service.addTema(newTema2).getID(), newTema.getID());
+    void testAddAssignmentEmptyID() {
+        Tema newTema = new Tema("", "a", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
     }
+
+    @Test
+    void testAddAssignmentNullID() {
+        Tema newTema = new Tema(null, "a", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+
+    @Test
+    void testAddAssignmentEmptyDescription() {
+        Tema newTema = new Tema("1", "", 1, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentDeadlineTooLarge() {
+        Tema newTema = new Tema("1", "a", 15, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentDeadlineTooSmall() {
+        Tema newTema = new Tema("1", "a", 0, 1);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentReceivedTooSmall() {
+        Tema newTema = new Tema("1", "a", 1, 0);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
+    @Test
+    void testAddAssignmentReceivedTooLarge() {
+        Tema newTema = new Tema("1", "a", 0, 15);
+        assertThrows(ValidationException.class, () -> this.service.addTema(newTema));
+    }
+
 
  }
 

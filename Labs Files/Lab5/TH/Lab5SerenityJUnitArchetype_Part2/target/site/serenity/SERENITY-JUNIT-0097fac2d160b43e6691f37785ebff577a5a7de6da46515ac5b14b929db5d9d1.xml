@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="org.example.features.login.LoginWithInvalidCredentialsStory" skipped="0" tests="1" time="11.5" timestamp="2023-05-20 07:53:17"><testcase classname="org.example.features.login.LoginWithInvalidCredentialsStory" name="Log in with invalid credentials should prompt with error"/></testsuite>

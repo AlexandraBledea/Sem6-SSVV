@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="1" name="org.example.features.search.SearchByKeywordStoryDDT" skipped="0" tests="5" time="28.87" timestamp="2023-05-23 04:46:08"><testcase classname="org.example.features.search.SearchByKeywordStoryDDT" name="Search wiki by keyword test DDT"><failure message="&#10;Expected: a collection containing a string containing &quot;The emotion of being sad;&quot;&#10;     but: was &quot;(uncountable) The state or emotion of being sad. synonyms ▲&#10;Synonyms: forlornness, melancholy&quot;, was &quot;(countable) An event in one's life that causes sadness. synonyms ▲&#10;She has experienced many sadnesses in her forty years.&#10;Synonyms: misfortune, woe&quot;" type="java.lang.AssertionError">
+Expected: a collection containing a string containing "The emotion of being sad;"
+     but: was "(uncountable) The state or emotion of being sad. synonyms ▲
+Synonyms: forlornness, melancholy", was "(countable) An event in one's life that causes sadness. synonyms ▲
+She has experienced many sadnesses in her forty years.
+Synonyms: misfortune, woe"</failure><system-err>
+Expected: a collection containing a string containing "The emotion of being sad;"
+     but: was "(uncountable) The state or emotion of being sad. synonyms ▲
+Synonyms: forlornness, melancholy", was "(countable) An event in one's life that causes sadness. synonyms ▲
+She has experienced many sadnesses in her forty years.
+Synonyms: misfortune, woe"&#13;
+org.example.steps.serenity.EndUserSteps.should_see_definition(EndUserSteps.java:27)&#13;
+org.example.features.search.SearchByKeywordStoryDDT.searchWikiByKeywordTestDDT(SearchByKeywordStoryDDT.java:35)&#13;
+</system-err></testcase></testsuite>

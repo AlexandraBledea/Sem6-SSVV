@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Search by keyword story","Searching by keyword apple should display the corresponding article","SUCCESS","2023-05-20T00:33:55.6841036+03:00[Europe/Helsinki]","0.0","2.98"
+"Search by keyword story","Searching by keyword should display the corresponding information ddt","SUCCESS","2023-05-20T19:53:41.1046996+03:00[Europe/Helsinki]","0.0","13.09"

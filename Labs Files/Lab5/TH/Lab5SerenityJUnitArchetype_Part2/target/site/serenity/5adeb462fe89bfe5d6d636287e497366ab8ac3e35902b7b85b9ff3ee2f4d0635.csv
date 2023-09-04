@@ -1,0 +1,2 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Login with good credentials story","Log in with valid credentials should prompt with user","SUCCESS","2023-05-20T19:53:03.3096011+03:00[Europe/Helsinki]","0.0","15.09"
